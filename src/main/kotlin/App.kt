@@ -1,16 +1,16 @@
-import com.shobande.menufactory.gateway.wrappers.HubTel
+import com.shobande.menufactory.gateway.wrappers.AfricasTalking
+import com.shobande.menufactory.menu.Menu
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
 import io.ktor.request.receive
 import io.ktor.response.respond
+import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import com.shobande.menufactory.menu.Menu
-import io.ktor.routing.get
 import java.text.DateFormat
 
 suspend fun main() {
@@ -52,7 +52,7 @@ enum class States {
 fun fetchBalance(): Int = 100
 
 suspend fun buildMenu(): Menu {
-    return Menu.menu("Mystery App", HubTel) {
+    return Menu.menu("Mystery App", AfricasTalking) {
         startState {
             run {
                 con("""Welcome to ${this@menu.name}
