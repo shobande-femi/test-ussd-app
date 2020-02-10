@@ -1,0 +1,1 @@
+web: build/install/test-ussd-app/bin/test-ussd-ap
