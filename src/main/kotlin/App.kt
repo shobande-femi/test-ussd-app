@@ -32,7 +32,12 @@ suspend fun main() {
             }
 
             post("/") {
-                menu.handle(call.receive()) { call.respond(it) }
+                val request = call.receive<Any>()
+                println(request)
+                menu.handle(request) {
+                    println(it)
+                    call.respond(it)
+                }
             }
         }
     }.start(wait = true)
