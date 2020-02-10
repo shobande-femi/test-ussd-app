@@ -1,1 +1,1 @@
-web: build/install/test-ussd-app/bin/test-ussd-ap
+web: build/install/test-ussd-app/bin/test-ussd-app
