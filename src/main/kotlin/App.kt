@@ -5,6 +5,7 @@ import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
 import io.ktor.request.receive
+import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -20,19 +21,19 @@ suspend fun main() {
 
     embeddedServer(Netty, port) {
         routing {
-            install(ContentNegotiation) {
-                gson {
-                    setDateFormat(DateFormat.LONG)
-                    setPrettyPrinting()
-                }
-            }
+//            install(ContentNegotiation) {
+//                gson {
+//                    setDateFormat(DateFormat.LONG)
+//                    setPrettyPrinting()
+//                }
+//            }
 
             get("/") {
                 call.respond("Alive!")
             }
 
             post("/") {
-                val request = call.receive<Any>()
+                val request = call.receiveText()
                 println(request)
                 menu.handle(request) {
                     println(it)
