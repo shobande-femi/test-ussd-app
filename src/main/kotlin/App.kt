@@ -24,22 +24,16 @@ suspend fun main() {
 //            }
 
             get("/") {
-                call.respond("Alive!")
+                call.respond(menu.name)
             }
 
             post("/") {
                 val params = call.receiveParameters()
 
                 val request = mutableMapOf<String, String>()
-                params.entries().forEach {
-                    request[it.key] = it.value.first()
-                }
+                params.entries().forEach { request[it.key] = it.value.first() }
 
-                println(request)
-                menu.handle(request) {
-                    println(it)
-                    call.respond(it)
-                }
+                menu.handle(request) { call.respond(it) }
             }
         }
     }.start(wait = true)
@@ -89,9 +83,12 @@ suspend fun buildMenu(): Menu {
 
         state(States.BUY_AIRTIME.name) {
             run {
-                con("Enter your phone number")
+                con("""Enter your phone number
+                    |0. Go back
+                """.trimMargin())
             }
             transitions {
+                "0" to this@menu.startStateName
                 """^[0-9]*$""" to "airtimeBought"
                 """^[a-zA-Z]*$""" to States.CONTACT_US.name
             }
