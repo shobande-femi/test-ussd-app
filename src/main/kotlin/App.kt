@@ -92,7 +92,7 @@ suspend fun buildMenu(): Menu {
                 con("Enter your phone number")
             }
             transitions {
-                """^[0-9]*$""" to "selectNetworkProvider"
+                """^[0-9]*$""" to "airtimeBought"
                 """^[a-zA-Z]*$""" to States.CONTACT_US.name
             }
             defaultNextState(States.CONTACT_US.name)
@@ -101,6 +101,12 @@ suspend fun buildMenu(): Menu {
         state(States.CONTACT_US.name) {
             run {
                 end("You can reach me on Twitter @shobande_femi")
+            }
+        }
+
+        state("airtimeBought") {
+            run {
+                end("You have successfully bought some airtime")
             }
         }
     }
