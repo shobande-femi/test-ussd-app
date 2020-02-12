@@ -35,7 +35,11 @@ suspend fun main() {
                     request[it.key] = it.value.first()
                 }
 
-                menu.handle(request) { call.respond(it) }
+                println(request)
+                menu.handle(request) {
+                    println(it)
+                    call.respond(it)
+                }
             }
         }
     }.start(wait = true)
