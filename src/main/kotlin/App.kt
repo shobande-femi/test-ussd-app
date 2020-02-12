@@ -36,14 +36,14 @@ suspend fun main() {
 
             post("/") {
                 println("\nfemi\n")
-                println(call.application)
-                println(call.attributes.allKeys)
-                println(call.parameters)
-                println(call.request)
+                println(call.attributes.allKeys.first().name)
+                println(call.parameters.names())
+                println(call.parameters.contains("phoneNumber"))
+                println(call.request.queryParameters.names())
                 println(call.receiveText())
                 println(call.url())
-                println(call.receive<Any>())
                 println("\nshobande\n")
+
                 val request = call.receiveText()
                 println(request)
                 menu.handle(request) {
