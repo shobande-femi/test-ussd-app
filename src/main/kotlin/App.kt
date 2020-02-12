@@ -41,7 +41,6 @@ suspend fun main() {
                 println(call.parameters)
                 println(call.request)
                 println(call.receiveText())
-                println(call.receiveMultipart())
                 println(call.url())
                 println(call.receive<Any>())
                 println("\nshobande\n")
