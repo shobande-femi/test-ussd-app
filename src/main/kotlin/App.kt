@@ -79,7 +79,7 @@ suspend fun buildMenu(): Menu {
 
         state(States.CHECK_BALANCE.name) {
             run {
-                if (it.phoneNumber.length != 13) {
+                if (it.phoneNumber.length != 14) {
                     goTo(States.CONTACT_US.name)
                 } else {
                     end("You balance is ${fetchBalance()}")
