@@ -33,15 +33,10 @@ suspend fun main() {
             }
 
             post("/") {
-                println(call.receiveParameters())
-                println(call.receiveParameters().names())
-                call.receiveStream()
-                val request = call.receiveText()
+                val request = call.receiveParameters()
                 println(request)
-                menu.handle(request) {
-                    println(it)
-                    call.respond(it)
-                }
+                println(request as Map<String, String>)
+                menu.handle(request) { call.respond(it) }
             }
         }
     }.start(wait = true)
