@@ -61,6 +61,7 @@ suspend fun buildMenu(): Menu {
             }
 
             transitions {
+                "" to "__START__"
                 "1" to States.CHECK_BALANCE.name
                 "2" to {
                     if (it.operator.equals("MTN")) {
