@@ -29,11 +29,12 @@ suspend fun main() {
 
             post("/") {
                 val params = call.receiveParameters()
-                println(params)
-                println(params as Map<String, String>)
+                println(params.entries())
                 println("femi")
                 val request = mutableMapOf<String, String>()
-                params.forEach { request[it.key] = it.value }
+//                params.entries().forEach {
+//                }
+//                params.
                 menu.handle(request) { call.respond(it) }
             }
         }
