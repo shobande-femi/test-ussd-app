@@ -61,17 +61,15 @@ suspend fun buildMenu(): Menu {
             }
 
             transitions {
-                "" to "__START__"
                 "1" to States.CHECK_BALANCE.name
                 "2" to {
-                    if (it.operator.equals("MTN")) {
+                    if (!it.operator.equals("MTN")) {
                         States.BUY_AIRTIME.name
                     } else {
                         States.CONTACT_US.name
                     }
                 }
                 "3" to States.CONTACT_US.name
-                """^[a-zA-Z]*$""" to States.CONTACT_US.name
             }
         }
 
@@ -91,6 +89,7 @@ suspend fun buildMenu(): Menu {
             }
             transitions {
                 """^[0-9]*$""" to "selectNetworkProvider"
+                """^[a-zA-Z]*$""" to States.CONTACT_US.name
             }
             defaultNextState(States.CONTACT_US.name)
         }
