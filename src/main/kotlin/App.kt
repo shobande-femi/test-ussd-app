@@ -5,6 +5,7 @@ import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
 import io.ktor.request.receive
+import io.ktor.request.receiveMultipart
 import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.routing.get
@@ -12,6 +13,7 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.util.url
 import java.text.DateFormat
 
 suspend fun main() {
@@ -35,9 +37,12 @@ suspend fun main() {
             post("/") {
                 println("\nfemi\n")
                 println(call.application)
-                println(call.attributes)
+                println(call.attributes.allKeys)
                 println(call.parameters)
                 println(call.request)
+                println(call.receiveText())
+                println(call.receiveMultipart())
+                println(call.url())
                 println(call.receive<Any>())
                 println("\nshobande\n")
                 val request = call.receiveText()
