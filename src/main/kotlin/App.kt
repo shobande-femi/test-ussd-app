@@ -1,9 +1,6 @@
 import com.shobande.menufactory.gateway.wrappers.AfricasTalking
 import com.shobande.menufactory.menu.Menu
 import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.ContentNegotiation
-import io.ktor.gson.gson
 import io.ktor.request.*
 import io.ktor.response.respond
 import io.ktor.routing.get
@@ -11,8 +8,6 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.util.url
-import java.text.DateFormat
 
 suspend fun main() {
     val menu = buildMenu()
@@ -33,10 +28,12 @@ suspend fun main() {
             }
 
             post("/") {
-                val request = call.receiveParameters()
-                println(request)
-                println(request as Map<String, String>)
+                val params = call.receiveParameters()
+                println(params)
+                println(params as Map<String, String>)
                 println("femi")
+                val request = mutableMapOf<String, String>()
+                params.forEach { request[it.key] = it.value }
                 menu.handle(request) { call.respond(it) }
             }
         }
