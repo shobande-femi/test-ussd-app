@@ -4,9 +4,7 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
-import io.ktor.request.receive
-import io.ktor.request.receiveMultipart
-import io.ktor.request.receiveText
+import io.ktor.request.*
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
@@ -23,27 +21,21 @@ suspend fun main() {
 
     embeddedServer(Netty, port) {
         routing {
-            install(ContentNegotiation) {
-                gson {
-                    setDateFormat(DateFormat.LONG)
-                    setPrettyPrinting()
-                }
-            }
+//            install(ContentNegotiation) {
+//                gson {
+//                    setDateFormat(DateFormat.LONG)
+//                    setPrettyPrinting()
+//                }
+//            }
 
             get("/") {
                 call.respond("Alive!")
             }
 
             post("/") {
-                println("\nfemi\n")
-                println(call.attributes.allKeys.first().name)
-                println(call.parameters.names())
-                println(call.parameters.contains("phoneNumber"))
-                println(call.request.queryParameters.names())
-                println(call.receiveText())
-                println(call.url())
-                println("\nshobande\n")
-
+                println(call.receiveParameters())
+                println(call.receiveParameters().names())
+                call.receiveStream()
                 val request = call.receiveText()
                 println(request)
                 menu.handle(request) {
