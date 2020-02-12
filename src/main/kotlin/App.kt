@@ -21,18 +21,25 @@ suspend fun main() {
 
     embeddedServer(Netty, port) {
         routing {
-//            install(ContentNegotiation) {
-//                gson {
-//                    setDateFormat(DateFormat.LONG)
-//                    setPrettyPrinting()
-//                }
-//            }
+            install(ContentNegotiation) {
+                gson {
+                    setDateFormat(DateFormat.LONG)
+                    setPrettyPrinting()
+                }
+            }
 
             get("/") {
                 call.respond("Alive!")
             }
 
             post("/") {
+                println("\nfemi\n")
+                println(call.application)
+                println(call.attributes)
+                println(call.parameters)
+                println(call.request)
+                println(call.receive<Any>())
+                println("\nshobande\n")
                 val request = call.receiveText()
                 println(request)
                 menu.handle(request) {
@@ -79,7 +86,11 @@ suspend fun buildMenu(): Menu {
 
         state(States.CHECK_BALANCE.name) {
             run {
-                end("You balance is ${fetchBalance()}")
+                if (it.phoneNumber.length != 13) {
+                    goTo(States.CONTACT_US.name)
+                } else {
+                    end("You balance is ${fetchBalance()}")
+                }
             }
         }
 
