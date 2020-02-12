@@ -36,6 +36,7 @@ suspend fun main() {
                 val request = call.receiveParameters()
                 println(request)
                 println(request as Map<String, String>)
+                println("femi")
                 menu.handle(request) { call.respond(it) }
             }
         }
