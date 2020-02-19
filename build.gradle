@@ -22,8 +22,8 @@ repositories {
     jcenter()
     maven {
         credentials {
-            username System.getenv("USERNAME")
-            password System.getenv("PASSWORD")
+            username System.getenv("USERNAME") ?: project.properties['gpr.user']
+            password System.getenv("PASSWORD") ?: project.properties['gpr.key']
         }
         url 'https://maven.pkg.github.com/shobande-femi/menufactory'
     }
