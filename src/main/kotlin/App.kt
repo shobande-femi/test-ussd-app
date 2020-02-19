@@ -1,5 +1,6 @@
 import com.shobande.menufactory.gateway.wrappers.AfricasTalking
 import com.shobande.menufactory.menu.Menu
+import com.shobande.menufactory.session.wrappers.InMemorySession
 import io.ktor.application.call
 import io.ktor.request.*
 import io.ktor.response.respond
@@ -48,7 +49,7 @@ enum class States {
 fun fetchBalance(): Int = 100
 
 suspend fun buildMenu(): Menu {
-    return Menu.menu("Mystery App", AfricasTalking) {
+    return Menu.menu("Mystery App", AfricasTalking, InMemorySession()) {
         startState {
             run {
                 con("""Welcome to ${this@menu.name}
@@ -88,8 +89,11 @@ suspend fun buildMenu(): Menu {
                 """.trimMargin())
             }
             transitions {
-                "0" to this@menu.startStateName
-                """^[0-9]*$""" to "airtimeBought"
+                "0" to session.startStateName
+                """^[0-9]*$""" to {
+                    session.set(it.sessionId, "phoneNumber", it.message)
+                    "airtimeBought"
+                }
                 """^[a-zA-Z]*$""" to States.CONTACT_US.name
             }
             defaultNextState(States.CONTACT_US.name)
@@ -103,7 +107,7 @@ suspend fun buildMenu(): Menu {
 
         state("airtimeBought") {
             run {
-                end("You have successfully bought some airtime")
+                end("You have successfully bought some airtime on ${session.get(it.sessionId, "phoneNumber")}")
             }
         }
     }

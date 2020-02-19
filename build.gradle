@@ -1,7 +1,7 @@
 buildscript {
     ext.kotlin_version = '1.3.61'
     ext.ktor_version = '1.3.0'
-    ext.menufactory_version = '1.0.1'
+    ext.menufactory_version = '1.1.0'
 
     repositories {
         mavenCentral()
